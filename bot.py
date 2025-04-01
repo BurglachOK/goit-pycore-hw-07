@@ -19,7 +19,7 @@ class Name(Field):
 class Phone(Field):
     def __init__(self, value):
         if not value.isdigit() or len(value) <= 9:
-            return ValueError("Phone number must be at least 10 characters long or contains letters")
+            raise ValueError("Phone number must be at least 10 characters long or contains letters")
         super().__init__(value)
 
 
@@ -93,11 +93,11 @@ def input_error(func):
         try:
             return func(*args, **kwargs)
         except ValueError:
-            print("Give me name and phone please.")
+            return "Give me name and phone please."
         except KeyError:
-            print("Contact not found.") 
+            return "Contact not found."
         except IndexError:
-            print("Enter user name.")
+            return "Enter user name."
     return inner
 
 
@@ -182,17 +182,29 @@ def main():
     book = AddressBook()
 
 
-    print("Welcome to the assistant bot!"
+    print(
+    "\n"
+    "\nWelcome to the assistant bot!\n"
     "\nAvailable commands: "
-    "\nhello"
-    "\nadd [name] [phone]"
-    "\nchange [name old_phone new_phone]"
-    "\nphone [name]"
-    "\nall"
-    "\nadd-birthday [name birthday]"
-    "\nshow-birthday [name]"
-    "\nbirthdays"
-    "\nTo exit the program, type 'close' or 'exit'.")
+    "\n--------------------------------------------------------------------------------------------"
+    "\nhello - greets the user"
+    "\n--------------------------------------------------------------------------------------------"
+    "\nadd [name] [phone(min 10 digits)] - adds a new contact"
+    "\n--------------------------------------------------------------------------------------------"
+    "\nchange [name old_phone(min 10 digits) new_phone(min 10 digits)] - changes a phone number"
+    "\n--------------------------------------------------------------------------------------------"
+    "\nphone [name] - shows the phone number of the contact"
+    "\n--------------------------------------------------------------------------------------------"
+    "\nall - shows all contacts"
+    "\n--------------------------------------------------------------------------------------------"
+    "\nadd-birthday [name birthday(DD.MM.YYYY)] - adds a birthday to the contact"
+    "\n--------------------------------------------------------------------------------------------"
+    "\nshow-birthday [name] - shows the birthday of the contact"
+    "\n--------------------------------------------------------------------------------------------"
+    "\nbirthdays - shows all contacts with birthdays in the next 7 days"
+    "\n--------------------------------------------------------------------------------------------"
+    "\n(close) or (exit) - closes the bot"
+    "\n--------------------------------------------------------------------------------------------")
 
     while True:
         user_input = input("Enter a command: ")
