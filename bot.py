@@ -152,8 +152,6 @@ def add_birthday(args, book):
     record = book.find(name)
     if record is None:
         return f'There is no contact with name: {name}'
-    if ValueError:
-        return 'Invalid date format. Use DD.MM.YYYY'
     record.add_birthday(birthday)
     return f'Successfully added birthday to the contact named: {name}'
 
