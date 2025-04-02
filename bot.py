@@ -126,8 +126,9 @@ def change_contact(args, book):
     record = book.find(name)
     if record is None:
         return f"Name {name} not found"
-    record.edit_phone(old_phone, new_phone)
-    return "Contact updated."
+    if record.edit_phone(old_phone, new_phone):
+        return "Contact updated."
+    return 'Please provide a valid phone number.'
 
 
 @input_error
@@ -151,6 +152,8 @@ def add_birthday(args, book):
     record = book.find(name)
     if record is None:
         return f'There is no contact with name: {name}'
+    if ValueError:
+        return 'Invalid date format. Use DD.MM.YYYY'
     record.add_birthday(birthday)
     return f'Successfully added birthday to the contact named: {name}'
 
